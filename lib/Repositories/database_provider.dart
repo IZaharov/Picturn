@@ -1,17 +1,18 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:picturn/Models/post.dart';
+import 'dart:io';
 
-class DatabaseProvider{
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:picturn/Models/post.dart';
+import 'package:path/path.dart' as Path;
+
+class DatabaseProvider {
   final databaseReference = FirebaseDatabase.instance.reference();
 
-  DatabaseReference savePost(Post post){
+  DatabaseReference addPost(Post post) {
     var id = databaseReference.child('posts/').push();
+    post.setId(id);
     id.set(post.toJson());
     return id;
-  }
-
-  void updatePost(Post post, DatabaseReference id) {
-    id.update(post.toJson());
   }
 
   Future<List<Post>> getAllPosts() async {
@@ -20,6 +21,7 @@ class DatabaseProvider{
     print('qqqqqqqqqqqqqqqq');
     if (dataSnapshot.value != null) {
       dataSnapshot.value.forEach((key, value) {
+        print("ASDGSDGSGSDGSDFGASFASFADFSDGASDFASFASFADFAFD");
         Post post = Post.createPost(value);
         post.setId(databaseReference.child('posts/' + key));
         posts.add(post);
@@ -29,7 +31,4 @@ class DatabaseProvider{
     }
     return posts;
   }
-
-
-
 }

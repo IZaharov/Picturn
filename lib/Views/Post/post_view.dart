@@ -46,8 +46,15 @@ class _PostView extends State<PostView> {
                 minScale: 1, // optional
                 maxScale: 3.0, // optional
                 twoTouchOnly: true,
-                child: Image.asset(this.postViewModel.getImagePath)),
-                //child: Image.network(this.postViewModel.getImagePath)),
+                child:  FutureBuilder(
+                    future: this.postViewModel.getImagePath,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return Image.network(snapshot.data);
+                      else
+                        return Image.asset('res/images/post_bg.jpg');
+                    }),
+            ),
             Container(
                 child: SizedBox(
                     width: 80,

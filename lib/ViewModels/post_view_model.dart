@@ -19,7 +19,7 @@ class PostViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get getImagePath => this.post.imagePath;
+  Future<String> get getImagePath async => await PostRepository().getImagePath(post.imageID);
 
   String get getAuthor => this.post.profile.nickName;
 

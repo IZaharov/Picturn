@@ -1,28 +1,36 @@
+import 'dart:io';
+
 import 'package:date_format/date_format.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:picturn/Models/profile.dart';
 
 class Post {
-  final String imagePath;
   final Profile profile;
   final DateTime date;
 
+  String imageID;
   bool isLiked;
   int likesCount;
 
   Set profileLiked = {};
-  DatabaseReference _id;
+  DatabaseReference id;
+  File imageFile;
 
-  Post(this.profile, this.date, this.imagePath, this.likesCount,
+  Post(this.profile, this.date, this.likesCount,
       {this.isLiked = false});
 
   void setId(DatabaseReference id) {
-    this._id = id;
+    this.id = id;
+    imageID = id.key;
+  }
+
+  void setImageFile(File imageFile) {
+    this.imageFile = imageFile;
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'imagePath': this.imagePath,
+      'imageID': this.id.key,
       'nickName': this.profile.nickName,
       'avatarImagePath': this.profile.avatarImagePath,
       'date': formatDate(this.date, [yyyy, '-', mm, '-', dd]),
@@ -33,12 +41,14 @@ class Post {
 
   static Post createPost(record) {
     Map<String, dynamic> attributes = {
-      'imagePath': '',
+      'imageID': '',
       'nickName': '',
       'avatarImagePath': '',
       'date': '',
       'profileLiked': [],
     };
+
+    print(record.toString());
 
     record.forEach((key, value) => {attributes[key] = value});
 
@@ -47,8 +57,8 @@ class Post {
         Profile(attributes['nickName'],
             avatarImagePath: attributes['avatarImagePath']),
         DateTime.parse(attributes['date']),
-        attributes['imagePath'],
         123);
+    post.imageID = attributes['imageID'];
     //post.usersLiked = new Set.from(attributes['usersLiked']);
     return post;
   }
