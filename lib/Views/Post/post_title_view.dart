@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturn/ViewModels/post_view_model.dart';
 import 'package:picturn/ViewModels/profile_view_model.dart';
+import 'package:picturn/Views/CustomWidgets/stroke_text.dart';
 import 'package:picturn/Views/Profile/profile_view.dart';
 import 'package:picturn/runtime_data.dart';
 
@@ -43,9 +44,11 @@ class PostTitleView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(this.postViewModel.getAuthor),
+                    Text(this.postViewModel.getAuthor, style: TextStyle(fontSize: 16.5),),
                     Text(formatDate(
-                        this.postViewModel.getDate, [yyyy, '-', mm, '-', dd]))
+                        this.postViewModel.getDate, [HH, ':', nn ]), style: TextStyle(fontSize: 11, color: Colors.grey[700]),),
+                    Text(formatDate(
+                        this.postViewModel.getDate, [dd, '.', mm, '.', yyyy]), style: TextStyle(fontSize: 11, color: Colors.grey[700]), ),
                   ],
                 ))
           ],

@@ -22,7 +22,7 @@ class DatabaseProvider {
     if (dataSnapshot.value != null) {
       dataSnapshot.value.forEach((key, value) {
         print("ASDGSDGSGSDGSDFGASFASFADFSDGASDFASFASFADFAFD");
-        Post post = Post.createPost(value);
+        Post post = Post.createPostFromJson(value);
         post.setId(databaseReference.child('posts/' + key));
         posts.add(post);
         print(post.profile.nickName);

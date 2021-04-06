@@ -33,13 +33,13 @@ class Post {
       'imageID': this.id.key,
       'nickName': this.profile.nickName,
       'avatarImagePath': this.profile.avatarImagePath,
-      'date': formatDate(this.date, [yyyy, '-', mm, '-', dd]),
+      'date': formatDate(this.date, [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
       'profileLiked': this.profileLiked.toList(),
     };
   }
 
 
-  static Post createPost(record) {
+  static Post createPostFromJson(record) {
     Map<String, dynamic> attributes = {
       'imageID': '',
       'nickName': '',
