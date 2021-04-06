@@ -49,8 +49,9 @@ class _PostView extends State<PostView> {
                 child:  FutureBuilder(
                     future: this.postViewModel.getImagePath,
                     builder: (context, snapshot) {
-                      if (snapshot.hasData)
-                        return Image.network(snapshot.data);
+                      if (snapshot.hasData){
+                        print('huihuihuhiuhiuhi');
+                        return Image.network(snapshot.data);}
                       else
                         return Image.asset('res/images/post_bg.jpg');
                     }),
