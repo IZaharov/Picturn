@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'auth.dart';
+import 'package:picturn/ViewModels/login_view_model.dart';
 import 'navigation_bar_view.dart';
 
 class LoginPage extends StatelessWidget {
@@ -16,18 +16,17 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  UserCredential user;
+  LoginViewModel loginViewModel = LoginViewModel();
 
   @override
   void initState() {
     super.initState();
-    signOutGoogle();
+    this.loginViewModel.signOutGoogle();
   }
 
   void click() {
-    signInWithGoogle().then(
-      (user) => {
-        this.user = user,
+    this.loginViewModel.signInWithGoogle().then(
+      (_) => {
         Navigator.push(
           context,
           MaterialPageRoute(

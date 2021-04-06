@@ -12,6 +12,8 @@ class PostListViewModel extends ChangeNotifier {
   PostListType _type;
   ProfileViewModel profileViewModel;
 
+  PostRepository _postRepository = PostRepository();
+
   PostListViewModel(this._type, {this.profileViewModel});
 
   Future<void> fetchPosts() async {
@@ -19,10 +21,11 @@ class PostListViewModel extends ChangeNotifier {
 
     switch (this._type) {
       case PostListType.all:
-        results = await PostRepository().fetchPosts();
+        results = await this._postRepository.fetchPosts();
         break;
       case PostListType.profile:
-        results = await PostRepository()
+        results = await this
+            ._postRepository
             .fetchProfilePosts(this.profileViewModel.profile.nickName);
         break;
     }

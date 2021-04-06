@@ -5,6 +5,7 @@ import 'package:picturn/Repositories/post_repository.dart';
 
 class PostViewModel extends ChangeNotifier {
   final Post post;
+  PostRepository _postRepository = PostRepository();
 
   PostViewModel({this.post});
 
@@ -19,13 +20,15 @@ class PostViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> get getImagePath async => await PostRepository().getImagePath(post.imageID);
+  Future<String> get getImagePath async => await this._postRepository.getImagePath(post.imageID);
 
   String get getAuthor => this.post.profile.nickName;
 
   DateTime get getDate => this.post.date;
 
   Profile get getProfile => this.post.profile;
+
+  bool get getIsLiked => this.post.isLiked;
 
   String get getAvatarImagePath =>
       (this.post.profile.avatarImagePath == null ||  this.post.profile.avatarImagePath.isEmpty)

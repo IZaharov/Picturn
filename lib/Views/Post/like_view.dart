@@ -25,7 +25,7 @@ class _LikeView extends State<LikeView> {
           children: <Widget>[
             IconButton(
                 splashRadius: 25,
-                icon: this.postViewModel.post.isLiked
+                icon: this.postViewModel.getIsLiked
                     ? Icon(Icons.favorite_outlined, color: Colors.red)
                     : Icon(Icons.favorite_outline),
                 iconSize: 30,
