@@ -21,7 +21,7 @@ class _PostListView extends State<PostListView> {
     }
 
     var postCount = postListViewModel.postViewModels.length;
-    return postCount != 0
+    return  postListViewModel.postViewModels.isNotEmpty
         ? RefreshIndicator(
         child: ListView.builder(itemBuilder: (context, index) {
           if (index < postCount)

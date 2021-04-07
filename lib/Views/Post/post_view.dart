@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:picturn/ViewModels/post_view_model.dart';
 import 'package:picturn/Views/CustomWidgets/zoom_overlay.dart';
 import 'package:picturn/Views/Post/post_title_view.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import 'like_view.dart';
 
@@ -42,20 +43,34 @@ class _PostView extends State<PostView> {
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            ZoomOverlay(
-                minScale: 1, // optional
-                maxScale: 3.0, // optional
-                twoTouchOnly: true,
-                child:  FutureBuilder(
-                    future: this.postViewModel.getImagePath,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData){
-                        print('huihuihuhiuhiuhi');
-                        return Image.network(snapshot.data);}
-                      else
-                        return Image.asset('res/images/post_bg.jpg');
-                    }),
-            ),
+           FutureBuilder(
+                  future: this.postViewModel.getImagePath,
+                  builder: (context, snapshot) {
+                    var placeholderWidget = Container(
+                      child: CircularProgressIndicator(),
+                      padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      alignment: AlignmentDirectional.center,
+                    );
+                    try {
+                      return   Stack(
+                        children: <Widget>[
+                          placeholderWidget,
+                          Center(
+                            child:ZoomOverlay(
+                              minScale: 1, // optional
+                              maxScale: 3.0, // optional
+                              twoTouchOnly: true,
+                              canTranslate: false,
+                              child: FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image: snapshot.data)),
+                          ),
+                        ],
+                      );
+                    } catch (_) {
+                      return placeholderWidget;
+                    }
+                  }),
             Container(
                 child: SizedBox(
                     width: 80,

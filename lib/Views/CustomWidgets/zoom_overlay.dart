@@ -44,24 +44,29 @@ class ZoomOverlay extends StatefulWidget {
   final bool twoTouchOnly;
   final double minScale;
   final double maxScale;
+  final bool canTranslate;
 
   const ZoomOverlay(
       {Key key,
         @required this.twoTouchOnly,
         @required this.child,
         this.minScale,
-        this.maxScale})
+        this.maxScale,
+        this.canTranslate})
       : assert(child != null),
         super(key: key);
 
   @override
-  _ZoomOverlayState createState() => _ZoomOverlayState();
+  _ZoomOverlayState createState() => _ZoomOverlayState(this.canTranslate);
 }
 
 class _ZoomOverlayState extends State<ZoomOverlay>
     with TickerProviderStateMixin {
   Matrix4 _matrix = Matrix4.identity();
   Offset _startFocalPoint;
+  final bool canTranslate;
+
+
   Animation<Matrix4> _animationReset;
   AnimationController _controllerReset;
   OverlayEntry _overlayEntry;
@@ -71,6 +76,8 @@ class _ZoomOverlayState extends State<ZoomOverlay>
 
   final GlobalKey<_TransformWidgetState> _transformWidget =
   GlobalKey<_TransformWidgetState>();
+
+  _ZoomOverlayState(this.canTranslate);
 
   @override
   void initState() {
@@ -154,7 +161,10 @@ class _ZoomOverlayState extends State<ZoomOverlay>
     Matrix4 scale =
     Matrix4(scaleby, 0, 0, 0, 0, scaleby, 0, 0, 0, 0, 1, 0, dx, dy, 0, 1);
 
-    _matrix = translate * scale;
+    if(this.canTranslate)
+      _matrix = translate * scale;
+    else
+      _matrix = scale;
 
     if (_transformWidget != null && _transformWidget.currentState != null) {
       _transformWidget.currentState.setMatrix(_matrix);
