@@ -37,18 +37,29 @@ class PostTitleView extends StatelessWidget {
                   radius: 20.0,
                   backgroundColor: Colors.black,
                   backgroundImage:
-                      AssetImage(this.postViewModel.getAvatarImagePath),
+                      this.postViewModel.getAvatarImagePath == null ||
+                              this.postViewModel.getAvatarImagePath.isEmpty
+                          ? AssetImage('res/images/no_avatar.png')
+                          : NetworkImage(this.postViewModel.getAvatarImagePath),
                 )),
             Padding(
                 padding: EdgeInsets.only(left: 10, top: 0, right: 0, bottom: 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(this.postViewModel.getAuthor, style: TextStyle(fontSize: 16.5),),
-                    Text(formatDate(
-                        this.postViewModel.getDate, [HH, ':', nn ]), style: TextStyle(fontSize: 11, color: Colors.grey[700]),),
-                    Text(formatDate(
-                        this.postViewModel.getDate, [dd, '.', mm, '.', yyyy]), style: TextStyle(fontSize: 11, color: Colors.grey[700]), ),
+                    Text(
+                      this.postViewModel.getAuthor,
+                      style: TextStyle(fontSize: 16.5),
+                    ),
+                    Text(
+                      formatDate(this.postViewModel.getDate, [HH, ':', nn]),
+                      style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+                    ),
+                    Text(
+                      formatDate(
+                          this.postViewModel.getDate, [dd, '.', mm, '.', yyyy]),
+                      style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+                    ),
                   ],
                 ))
           ],

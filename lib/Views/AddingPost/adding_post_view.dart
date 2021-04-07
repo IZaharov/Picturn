@@ -83,25 +83,9 @@ class _AddingPostView extends State<AddingPostView> {
                         onPressed: () {
                           print('add post');
 
-                          // Post post = Post(Profile('John', avatarImagePath: 'res/images/ava1.jpg'), DateTime.now(), 'res/images/1.jpg', 777);
-                          // Post post2 = Post(Profile('Ilon'), DateTime.now(), 'res/images/2.jpg', 666);
-                          // Post post3 = Post(Profile('Сергей Александрович', avatarImagePath: 'res/images/ava2.jpg'),  DateTime.now(), 'res/images/3.jpg', 555);
-                          // this.addingPostViewModel.addPost(post);
-                          // this.addingPostViewModel.addPost(post2);
-                          // this.addingPostViewModel.addPost(post3);
-
-                          File imageFile;
                           this.galleryListViewModel.imageAssets[this.galleryListViewModel.currentIndex].file.then((value) {
-                            imageFile = value;
-                            print(imageFile.path);
-                            
-                            Post post = Post(Profile('John', avatarImagePath: 'res/images/ava1.jpg'), DateTime.now(), 777);
-
-                            post.setImageFile(imageFile);
-                            this.addingPostViewModel.addPost(post);
+                            this.addingPostViewModel.addPost(value);
                           });
-
-
                         },
                       ),
                     ],

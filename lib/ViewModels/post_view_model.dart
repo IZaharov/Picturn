@@ -30,10 +30,7 @@ class PostViewModel extends ChangeNotifier {
 
   bool get getIsLiked => this.post.isLiked;
 
-  String get getAvatarImagePath =>
-      (this.post.profile.avatarImagePath == null ||  this.post.profile.avatarImagePath.isEmpty)
-      ? 'res/images/no_avatar.png'
-      : this.post.profile.avatarImagePath;
+  String get getAvatarImagePath => this.post.profile.avatarImagePath;
 
   int get getLikesCount => this.post.likesCount;
 }

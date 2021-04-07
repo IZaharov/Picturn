@@ -22,15 +22,10 @@ class ProfileViewHeader implements SliverPersistentHeaderDelegate {
     return Stack(
       fit: StackFit.expand,
       children: [
-        this.profileViewModel.getAvatarImagePath==null ?
-        Image.asset(
-          'res/images/no_avatar.png',
-          fit: BoxFit.cover,
-        ) :
-        Image.network(
-          this.profileViewModel.getAvatarImagePath,
-          fit: BoxFit.cover,
-        ),
+        this.profileViewModel.getAvatarImagePath == null
+            ? Image.asset('res/images/no_avatar.png', fit: BoxFit.cover)
+            : Image.network(this.profileViewModel.getAvatarImagePath,
+                fit: BoxFit.cover),
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -78,5 +73,3 @@ class ProfileViewHeader implements SliverPersistentHeaderDelegate {
   @override
   TickerProvider get vsync => null;
 }
-
-
