@@ -1,5 +1,4 @@
 import 'package:picturn/Models/post.dart';
-import 'package:picturn/Models/profile.dart';
 
 import 'database_provider.dart';
 import 'storage_provider.dart';
@@ -18,12 +17,7 @@ class PostRepository {
   }
 
   Future<List<Post>> fetchProfilePosts(String nickName) async {
-    //TODO get запрос получения постов пользователя
-    // return await Future.delayed(
-    //     Duration(seconds: 0),
-    //     () => postDataBase
-    //         .where((element) => element.profile.nickName == nickName)
-    //         .toList());
+    return await this.databaseProvider.getProfilePosts(nickName);
   }
 
   Future<bool> sendPostLikes(

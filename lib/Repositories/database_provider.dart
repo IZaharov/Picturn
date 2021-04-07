@@ -17,16 +17,21 @@ class DatabaseProvider {
 
   Future<List<Post>> getAllPosts() async {
     DataSnapshot dataSnapshot = await databaseReference.child('posts/').once();
+    return _getPosts(dataSnapshot);
+  }
+
+  Future<List<Post>> getProfilePosts(String nickName) async {
+     DataSnapshot dataSnapshot = await databaseReference.child('posts/').orderByChild("nickName").equalTo(nickName).once();
+     return _getPosts(dataSnapshot);
+  }
+
+  List<Post> _getPosts(DataSnapshot dataSnapshot) {
     List<Post> posts = [];
-    print('qqqqqqqqqqqqqqqq');
     if (dataSnapshot.value != null) {
       dataSnapshot.value.forEach((key, value) {
-        print("ASDGSDGSGSDGSDFGASFASFADFSDGASDFASFASFADFAFD");
         Post post = Post.createPostFromJson(value);
         post.setId(databaseReference.child('posts/' + key));
         posts.add(post);
-        print(post.profile.nickName);
-        //print(formatDate(post.date, [yyyy, '-', mm, '-', dd]));
       });
     }
     return posts;
