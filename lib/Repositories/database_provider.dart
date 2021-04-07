@@ -7,21 +7,22 @@ import 'package:path/path.dart' as Path;
 
 class DatabaseProvider {
   final databaseReference = FirebaseDatabase.instance.reference();
+  final String _childPosts = 'posts/';
 
   DatabaseReference addPost(Post post) {
-    var id = databaseReference.child('posts/').push();
+    var id = databaseReference.child(_childPosts).push();
     post.setId(id);
     id.set(post.toJson());
     return id;
   }
 
   Future<List<Post>> getAllPosts() async {
-    DataSnapshot dataSnapshot = await databaseReference.child('posts/').once();
+    DataSnapshot dataSnapshot = await databaseReference.child(_childPosts).once();
     return _getPosts(dataSnapshot);
   }
 
   Future<List<Post>> getProfilePosts(String eMail) async {
-     DataSnapshot dataSnapshot = await databaseReference.child('posts/').orderByChild("eMail").equalTo(eMail).once();
+     DataSnapshot dataSnapshot = await databaseReference.child(_childPosts).orderByChild("eMail").equalTo(eMail).once();
      return _getPosts(dataSnapshot);
   }
 
@@ -30,7 +31,7 @@ class DatabaseProvider {
     if (dataSnapshot.value != null) {
       dataSnapshot.value.forEach((key, value) {
         Post post = Post.createPostFromJson(value);
-        post.setId(databaseReference.child('posts/' + key));
+        post.setId(databaseReference.child(_childPosts + key));
         posts.add(post);
       });
     }
@@ -39,6 +40,6 @@ class DatabaseProvider {
   }
 
   void updatePost(Post post) async {
-    await databaseReference.child('posts/'+ post.imageID).update(post.toJson());
+    await databaseReference.child(_childPosts+ post.imageID).update(post.toJson());
   }
 }
