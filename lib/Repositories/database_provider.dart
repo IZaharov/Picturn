@@ -34,6 +34,7 @@ class DatabaseProvider {
         posts.add(post);
       });
     }
+    posts.sort((a, b) => b.date.compareTo(a.date));
     return posts;
   }
 }
