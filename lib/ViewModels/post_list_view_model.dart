@@ -36,6 +36,7 @@ class PostListViewModel extends ChangeNotifier {
 
   refreshPosts() {
     this.postViewModels.clear();
+    fetchPosts();
     notifyListeners();
   }
 }

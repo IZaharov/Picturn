@@ -15,16 +15,27 @@ class _PostListView extends State<PostListView> {
 
   @override
   Widget build(BuildContext context) {
-    if (postListViewModel == null)
+    if (postListViewModel == null) {
       postListViewModel = Provider.of<PostListViewModel>(context);
-    int postCount = postListViewModel.postViewModels.length;
-    return Container(child: ListView.builder(itemBuilder: (context, index) {
-      //print(index.toString() + ' index ' + postCount.toString() + ' постов');
-      if (index >= postCount) postListViewModel.fetchPosts();
-      if (index < postCount)
-        return PostView(postListViewModel.postViewModels[index]);
-      else
-        return null;
-    }));
+      postListViewModel.fetchPosts();
+    }
+
+    var postCount = postListViewModel.postViewModels.length;
+    return postCount != 0
+        ? RefreshIndicator(
+        child: ListView.builder(itemBuilder: (context, index) {
+          if (index < postCount)
+            return PostView(postListViewModel.postViewModels[index]);
+          else
+            return null;
+        }
+        ), onRefresh: _refreshPosts)
+        : Center(child: CircularProgressIndicator());
+  }
+
+  Future<void> _refreshPosts() async {
+    setState(() {
+      postListViewModel.refreshPosts();
+    });
   }
 }
