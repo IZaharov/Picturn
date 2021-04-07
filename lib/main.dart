@@ -78,7 +78,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    RuntimeData.currentUserProfileViewModel = ProfileViewModel(Profile('Ilon'));
     RuntimeData.currentOpenProfileViewModel = ProfileViewModel(null);
 
     // Show error message if initialization failed
