@@ -6,8 +6,7 @@ class ProfileViewModel {
   ProfileViewModel(this.profile);
 
   String get getAvatarImagePath =>
-      this.profile.avatarImagePath ?? 'res/images/no_avatar.png';
-
+      this.profile.avatarImagePath;
   bool equalProfiles(Profile profile) {
     return this.profile.nickName == profile.nickName;
   }
