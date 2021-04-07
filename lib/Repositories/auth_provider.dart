@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthProvider{
-  final GoogleSignIn googleSignIn = GoogleSignIn();
   User _user;
-  String get getUserName => this._user.displayName;
-  String get getUserAvatarImagePath => this._user.photoURL;
+  String get getUserName => _user.displayName;
+  String get getUserAvatarImagePath => _user.photoURL;
+  String get getEMail => _user.email;
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -36,6 +36,6 @@ class AuthProvider{
   }
 
   void signOutGoogle() async {
-    await googleSignIn.signOut();
+    await GoogleSignIn().signOut();
   }
 }

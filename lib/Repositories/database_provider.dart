@@ -20,8 +20,8 @@ class DatabaseProvider {
     return _getPosts(dataSnapshot);
   }
 
-  Future<List<Post>> getProfilePosts(String nickName) async {
-     DataSnapshot dataSnapshot = await databaseReference.child('posts/').orderByChild("nickName").equalTo(nickName).once();
+  Future<List<Post>> getProfilePosts(String eMail) async {
+     DataSnapshot dataSnapshot = await databaseReference.child('posts/').orderByChild("eMail").equalTo(eMail).once();
      return _getPosts(dataSnapshot);
   }
 

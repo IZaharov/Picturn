@@ -16,8 +16,8 @@ class PostRepository {
     return await this.databaseProvider.getAllPosts();
   }
 
-  Future<List<Post>> fetchProfilePosts(String nickName) async {
-    return await this.databaseProvider.getProfilePosts(nickName);
+  Future<List<Post>> fetchProfilePosts(String eMail) async {
+    return await this.databaseProvider.getProfilePosts(eMail);
   }
 
   Future<bool> sendPostLikes(

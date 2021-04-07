@@ -3,21 +3,20 @@ import 'dart:io';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:picturn/Models/profile.dart';
+import 'package:picturn/runtime_data.dart';
 
 class Post {
   final Profile profile;
   final DateTime date;
 
+  int likesCount;
   String imageID;
   bool isLiked;
-  int likesCount;
-
-  Set profileLiked = {};
+  Set<String> eMailUsersLiked = {};
   DatabaseReference id;
   File imageFile;
 
-  Post(this.profile, this.date, this.likesCount,
-      {this.isLiked = false});
+  Post(this.profile, this.date, this.likesCount, {this.isLiked = false});
 
   void setId(DatabaseReference id) {
     this.id = id;
@@ -33,11 +32,12 @@ class Post {
       'imageID': this.id.key,
       'nickName': this.profile.nickName,
       'avatarImagePath': this.profile.avatarImagePath,
-      'date': formatDate(this.date, [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
-      'profileLiked': this.profileLiked.toList(),
+      'date': formatDate(
+          this.date, [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
+      'profileLiked': this.eMailUsersLiked.toList(),
+      'eMail': this.profile.eMail,
     };
   }
-
 
   static Post createPostFromJson(record) {
     Map<String, dynamic> attributes = {
@@ -46,20 +46,27 @@ class Post {
       'avatarImagePath': '',
       'date': '',
       'profileLiked': [],
+      'eMail': '',
     };
 
     print(record.toString());
 
     record.forEach((key, value) => {attributes[key] = value});
 
-    print(attributes['date'] + '     hui');
     Post post = new Post(
-        Profile(attributes['nickName'],
+        Profile(attributes['nickName'], attributes['eMail'],
             avatarImagePath: attributes['avatarImagePath']),
         DateTime.parse(attributes['date']),
         123);
     post.imageID = attributes['imageID'];
-    //post.usersLiked = new Set.from(attributes['usersLiked']);
+    try {
+      post.eMailUsersLiked = new Set.from(attributes['usersLiked']);
+      post.isLiked = post.eMailUsersLiked.contains(
+          RuntimeData.currentUserProfileViewModel.profile.eMail);
+    }
+    catch(_){
+      post.isLiked = false;
+    }
     return post;
   }
 }

@@ -14,6 +14,6 @@ class AuthRepository{
   }
 
   Profile getProfile() {
-    return Profile(this.authProvider.getUserName,avatarImagePath: this.authProvider.getUserAvatarImagePath);
+    return Profile(this.authProvider.getUserName, this.authProvider.getEMail ,avatarImagePath: this.authProvider.getUserAvatarImagePath);
   }
 }
