@@ -12,6 +12,7 @@ class PostViewModel extends ChangeNotifier {
   bool trySetLike() {
     this.post.isLiked = !this.post.isLiked;
     this.post.isLiked ? this.post.likesCount++ : this.post.likesCount--;
+    _postRepository.sendPostLikes(post);
     return this.post.isLiked;
   }
 

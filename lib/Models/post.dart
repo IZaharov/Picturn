@@ -12,11 +12,11 @@ class Post {
   int likesCount;
   String imageID;
   bool isLiked;
-  Set<String> eMailUsersLiked = {};
+  Set eMailUsersLiked = {};
   DatabaseReference id;
   File imageFile;
 
-  Post(this.profile, this.date, this.likesCount, {this.isLiked = false});
+  Post(this.profile, this.date, {this.isLiked = false});
 
   void setId(DatabaseReference id) {
     this.id = id;
@@ -34,7 +34,7 @@ class Post {
       'avatarImagePath': this.profile.avatarImagePath,
       'date': formatDate(
           this.date, [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
-      'profileLiked': this.eMailUsersLiked.toList(),
+      'eMailUsersLiked': this.eMailUsersLiked.toList(),
       'eMail': this.profile.eMail,
     };
   }
@@ -45,7 +45,7 @@ class Post {
       'nickName': '',
       'avatarImagePath': '',
       'date': '',
-      'profileLiked': [],
+      'eMailUsersLiked': [],
       'eMail': '',
     };
 
@@ -56,16 +56,17 @@ class Post {
     Post post = new Post(
         Profile(attributes['nickName'], attributes['eMail'],
             avatarImagePath: attributes['avatarImagePath']),
-        DateTime.parse(attributes['date']),
-        123);
+        DateTime.parse(attributes['date']),);
     post.imageID = attributes['imageID'];
     try {
-      post.eMailUsersLiked = new Set.from(attributes['usersLiked']);
+      post.eMailUsersLiked = new Set.from(attributes['eMailUsersLiked']);
       post.isLiked = post.eMailUsersLiked.contains(
           RuntimeData.currentUserProfileViewModel.profile.eMail);
+      post.likesCount = post.eMailUsersLiked.length;
     }
     catch(_){
       post.isLiked = false;
+      post.likesCount = 0;
     }
     return post;
   }

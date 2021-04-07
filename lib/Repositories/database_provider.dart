@@ -37,4 +37,8 @@ class DatabaseProvider {
     posts.sort((a, b) => b.date.compareTo(a.date));
     return posts;
   }
+
+  void updatePost(Post post) async {
+    await databaseReference.child('posts/'+ post.imageID).update(post.toJson());
+  }
 }

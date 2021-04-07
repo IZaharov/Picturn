@@ -6,7 +6,7 @@ import 'package:picturn/runtime_data.dart';
 
 class AddingPostViewModel{
   Future<void> addPost(File imageFile) async{
-    Post post = Post(RuntimeData.currentUserProfileViewModel.profile, DateTime.now(), 777);
+    Post post = Post(RuntimeData.currentUserProfileViewModel.profile, DateTime.now());
     post.setImageFile(imageFile);
     PostRepository().addPost(post);
   }

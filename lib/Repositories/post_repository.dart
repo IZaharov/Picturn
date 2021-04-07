@@ -1,4 +1,5 @@
 import 'package:picturn/Models/post.dart';
+import 'package:picturn/runtime_data.dart';
 
 import 'database_provider.dart';
 import 'storage_provider.dart';
@@ -20,10 +21,16 @@ class PostRepository {
     return await this.databaseProvider.getProfilePosts(eMail);
   }
 
-  Future<bool> sendPostLikes(
-      String imagePath, String nickName, bool isLiked) async {
-    //TODO запрос на добавление/удаление лайка пользователя к посту
+  Future<bool> sendPostLikes(Post post) async {
     print('сервер получил лайк');
+
+    if(post.isLiked)
+      post.eMailUsersLiked.add(RuntimeData.currentUserProfileViewModel.profile.eMail);
+    else
+      post.eMailUsersLiked.remove(RuntimeData.currentUserProfileViewModel.profile.eMail);
+
+    databaseProvider.updatePost(post);
+
     return await Future.delayed(Duration(seconds: 0), () => true);
   }
 
