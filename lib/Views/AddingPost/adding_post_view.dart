@@ -15,6 +15,7 @@ import 'package:picturn/ViewModels/post_view_model.dart';
 import 'package:picturn/Views/AddingPost/full_size_image_asset_view.dart';
 import 'package:picturn/Views/AddingPost/image_asset_gallery_view.dart';
 import 'package:picturn/Views/CustomWidgets/stroke_text.dart';
+import 'package:picturn/Views/navigation_bar_view.dart';
 import 'package:provider/provider.dart';
 
 class AddingPostView extends StatefulWidget {
@@ -84,7 +85,14 @@ class _AddingPostView extends State<AddingPostView> {
                           print('add post');
 
                           this.galleryListViewModel.imageAssets[this.galleryListViewModel.currentIndex].file.then((value) {
-                            this.addingPostViewModel.addPost(value);
+                            this.addingPostViewModel.addPost(value)
+                            .then((value) {
+                              var navigationBarViewModel = Provider.of<NavigationBarViewModel>(
+                                  context, listen: false);
+                              navigationBarViewModel.currentIndex = 2;
+                              //TODO: обновить ленту
+                            });
+                            //TODO: анимация загрузки
                           });
                         },
                       ),
