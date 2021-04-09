@@ -12,7 +12,7 @@ class StorageProvider {
         .getDownloadURL();
   }
 
-  Future uploadImageInStorage(File img, String id) async {
+  Future<void> uploadImageInStorage(File img, String id) async {
     await this.firebaseStorageReference.child('images/${id}').putFile(img);
   }
 }

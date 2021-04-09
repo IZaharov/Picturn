@@ -8,6 +8,6 @@ class AddingPostViewModel{
   Future<void> addPost(File imageFile) async{
     Post post = Post(RuntimeData.currentUserProfileViewModel.profile, DateTime.now());
     post.setImageFile(imageFile);
-    PostRepository().addPost(post);
+    await PostRepository().addPost(post);
   }
 }

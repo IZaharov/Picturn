@@ -36,8 +36,10 @@ class _NavigationBarView extends State<NavigationBarView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => navigationBarViewModel,
+    return MultiProvider(providers:  [ChangeNotifierProvider(
+      create: (context) => navigationBarViewModel),
+    ChangeNotifierProvider(
+    create: (context) => (listTab[2] as ProfileView).postListViewModel)],
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Consumer<NavigationBarViewModel>(

@@ -10,7 +10,7 @@ class PostRepository {
 
   Future<void> addPost(Post post) async {
     this.databaseProvider.addPost(post);
-    this.storageProvider.uploadImageInStorage(post.imageFile, post.id.key);
+    await this.storageProvider.uploadImageInStorage(post.imageFile, post.id.key);
   }
 
   Future<List<Post>> fetchPosts() async {

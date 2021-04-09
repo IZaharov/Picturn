@@ -9,16 +9,19 @@ import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileViewModel profileViewModel;
+  PostListViewModel postListViewModel;
 
-  ProfileView(this.profileViewModel);
+  ProfileView(this.profileViewModel){
+    this.postListViewModel = PostListViewModel(PostListType.profile,
+        profileViewModel: this.profileViewModel);
+  }
 
   @override
   Widget build(BuildContext context) {
     RuntimeData.currentOpenProfileViewModel.profile =
         this.profileViewModel.profile;
     return ChangeNotifierProvider(
-        create: (context) => PostListViewModel(PostListType.profile,
-            profileViewModel: this.profileViewModel),
+        create: (context) => this.postListViewModel,
         child: Scaffold(
             body: Stack(
           children: <Widget>[

@@ -11,6 +11,7 @@ import 'package:picturn/Models/post.dart';
 import 'package:picturn/Models/profile.dart';
 import 'package:picturn/ViewModels/adding_post_view_model.dart';
 import 'package:picturn/ViewModels/gallery_list_view_model.dart';
+import 'package:picturn/ViewModels/post_list_view_model.dart';
 import 'package:picturn/ViewModels/post_view_model.dart';
 import 'package:picturn/Views/AddingPost/full_size_image_asset_view.dart';
 import 'package:picturn/Views/AddingPost/image_asset_gallery_view.dart';
@@ -83,17 +84,7 @@ class _AddingPostView extends State<AddingPostView> {
                         iconSize: 30,
                         onPressed: () {
                           print('add post');
-
-                          this.galleryListViewModel.imageAssets[this.galleryListViewModel.currentIndex].file.then((value) {
-                            this.addingPostViewModel.addPost(value)
-                            .then((value) {
-                              var navigationBarViewModel = Provider.of<NavigationBarViewModel>(
-                                  context, listen: false);
-                              navigationBarViewModel.currentIndex = 2;
-                              //TODO: обновить ленту
-                            });
-                            //TODO: анимация загрузки
-                          });
+                          _addPost(context);
                         },
                       ),
                     ],
@@ -124,6 +115,21 @@ class _AddingPostView extends State<AddingPostView> {
       ),
     );
   }
+
+  void _addPost(BuildContext context) {
+    this.galleryListViewModel.imageAssets[this.galleryListViewModel.currentIndex].file.then((value) {
+      this.addingPostViewModel.addPost(value)
+      .then((value) {
+        var navigationBarViewModel = Provider.of<NavigationBarViewModel>(
+            context, listen: false);
+        navigationBarViewModel.currentIndex = 2;
+
+        _refreshUserProfilePostList(context);
+      });
+      //TODO: анимация загрузки
+    });
+  }
+
 
   _fetchImageGalleryAssets() async {
     final albums = await PhotoManager.getAssetPathList(onlyAll: true);
@@ -157,5 +163,9 @@ class _AddingPostView extends State<AddingPostView> {
     }
   }
 
+  void _refreshUserProfilePostList(BuildContext context) {
+    var profilePostListViewModel = Provider.of<PostListViewModel>(context, listen: false);
+    profilePostListViewModel.refreshPosts();
+  }
 
 }
