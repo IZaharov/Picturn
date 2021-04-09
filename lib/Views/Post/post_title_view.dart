@@ -6,6 +6,9 @@ import 'package:picturn/ViewModels/profile_view_model.dart';
 import 'package:picturn/Views/CustomWidgets/stroke_text.dart';
 import 'package:picturn/Views/Profile/profile_view.dart';
 import 'package:picturn/runtime_data.dart';
+import 'package:provider/provider.dart';
+
+import '../navigation_bar_view.dart';
 
 class PostTitleView extends StatelessWidget {
   PostViewModel postViewModel;
@@ -21,7 +24,12 @@ class PostTitleView extends StatelessWidget {
             GestureDetector(
                 onTap: () {
                   if (RuntimeData.currentUserProfileViewModel
-                      .equalProfiles(this.postViewModel.getProfile)) return;
+                      .equalProfiles(this.postViewModel.getProfile)) {
+                    var navigationBarViewModel = Provider.of<NavigationBarViewModel>(
+                        context, listen: false);
+                    navigationBarViewModel.currentIndex = 2;
+                    return;
+                  }
 
                   if (RuntimeData.currentOpenProfileViewModel.profile != null &&
                       RuntimeData.currentOpenProfileViewModel
