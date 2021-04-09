@@ -30,7 +30,7 @@ class PostListViewModel extends ChangeNotifier {
         break;
     }
     this.postViewModels +=
-        results.map((item) => PostViewModel(post: item)).toList();
+        results.map((item) => PostViewModel(_postRepository, post: item)).toList();
     notifyListeners();
   }
 

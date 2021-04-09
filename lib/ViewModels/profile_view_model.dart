@@ -10,14 +10,4 @@ class ProfileViewModel {
   bool equalProfiles(Profile profile) {
     return this.profile.nickName == profile.nickName;
   }
-
-  int fetchCountPosts() {
-    //TODO метод репозитория, которому кидаем профиль
-    return 5;
-  }
-
-  int fetchCountLikes() {
-    //TODO метод репозитория, которому кидаем профиль
-    return 123;
-  }
 }

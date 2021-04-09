@@ -5,9 +5,9 @@ import 'package:picturn/Repositories/post_repository.dart';
 
 class PostViewModel extends ChangeNotifier {
   final Post post;
-  PostRepository _postRepository = PostRepository();
+  PostRepository _postRepository;
 
-  PostViewModel({this.post});
+  PostViewModel(this._postRepository,{this.post});
 
   bool trySetLike() {
     this.post.isLiked = !this.post.isLiked;

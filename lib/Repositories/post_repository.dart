@@ -34,12 +34,6 @@ class PostRepository {
     return await Future.delayed(Duration(seconds: 0), () => true);
   }
 
-  Future<int> fetchPostLikes(String imagePath) async {
-    //TODO get запрос получения кол-ва лайков поста
-    int count = await Future.delayed(Duration(seconds: 0), () => 15);
-    return count;
-  }
-
   Future<String> getImagePath(String id) async {
     return await storageProvider.getImagePath(id);
   }

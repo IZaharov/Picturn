@@ -21,21 +21,6 @@ class ProfileTitleView extends StatelessWidget {
               fontSize: 40.0,
               fontWeight: FontWeight.w900,
               strokeWidth: 0.8),
-          StrokeText(
-              'Публикаций:  ' +
-                  this.profileViewModel.fetchCountPosts().toString(),
-              strokeColor: Colors.black,
-              color: Colors.white,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w900,
-              strokeWidth: 0.5),
-          StrokeText(
-              'Лайков:  ' + this.profileViewModel.fetchCountLikes().toString(),
-              strokeColor: Colors.black,
-              color: Colors.white,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w900,
-              strokeWidth: 0.5)
         ],
       ),
     );
