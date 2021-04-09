@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:picturn/ViewModels/profile_view_model.dart';
+import 'package:picturn/Views/Profile/profile_exit_button.dart';
 import 'package:picturn/Views/Profile/profile_title_view.dart';
 
 import 'profile_photo_edit_button.dart';
@@ -36,6 +37,10 @@ class ProfileViewHeader implements SliverPersistentHeaderDelegate {
               tileMode: TileMode.repeated,
             ),
           ),
+        ),
+        Container(
+          padding: EdgeInsets.only(bottom: 150),
+          child: ProfileExitButton(this.profileViewModel),
         ),
         ProfilePhotoEditButton(this.profileViewModel),
         Positioned(

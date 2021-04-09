@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:picturn/runtime_data.dart';
 
 class AuthProvider{
   User _user;
@@ -36,6 +37,7 @@ class AuthProvider{
   }
 
   void signOutGoogle() async {
+    RuntimeData.currentUserProfileViewModel = null;
     await GoogleSignIn().signOut();
   }
 }
