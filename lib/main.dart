@@ -93,6 +93,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Picturn',
       theme: ThemeData(primarySwatch: Colors.blue),
+      routes: {
+        '/login_view': (_)=> LoginPage(),
+      },
+
       //home: NavigationBarView(),
 
        home: LoginPage()

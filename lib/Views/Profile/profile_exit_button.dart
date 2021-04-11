@@ -23,8 +23,8 @@ class ProfileExitButton extends StatelessWidget {
                 icon: Icon(Icons.exit_to_app, color: Colors.black),
                 onPressed: () {
                   print("exit");
-                  //LoginViewModel().signOutGoogle();
                   //TODO: перенаправить на login_view
+                  Navigator.pushReplacementNamed(context, '/login_view');
                 }))
             : null);
   }
