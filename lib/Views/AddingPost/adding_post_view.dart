@@ -145,6 +145,15 @@ class _AddingPostView extends State<AddingPostView> {
     });
   }
 
+  void _addImageGalleryAssets(AssetEntity assetEntity) async {
+    setState(() {
+      _galleryListViewModel.imageAssets.insert(0, assetEntity);
+      _galleryListViewModel.currentIndex = 0;
+      print(
+          'fetch count ' + _galleryListViewModel.imageAssets.length.toString());
+    });
+  }
+
   void _getCameraImage() async {
     PickedFile imageFile = await ImagePicker()
         .getImage(source: ImageSource.camera, imageQuality: 100);
@@ -156,8 +165,7 @@ class _AddingPostView extends State<AddingPostView> {
     print('полный путь картинки:   ' + tmpFile.path.toString());
     print('перед сохранением count ' +
         _galleryListViewModel.imageAssets.length.toString());
-    final saveResult =
-        await GallerySaver.saveImage(tmpFile.path, albumName: albumName).then((value) => value ? _fetchImageGalleryAssets() : null);
+    PhotoManager.editor.saveImage(tmpFile.absolute.readAsBytesSync()).then((value) => _addImageGalleryAssets(value));
   }
 
   void _addPost(BuildContext context) {
