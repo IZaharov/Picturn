@@ -126,27 +126,6 @@ class _AddingPostView extends State<AddingPostView> {
           );
   }
 
-  void _addPost(BuildContext context) {
-    _galleryListViewModel.imageAssets[_galleryListViewModel.currentIndex].file
-        .then((value) {
-      _addingPostViewModel.addPost(value).then((value) {
-        setState(() {
-          _initialise();
-        });
-        var navigationBarViewModel =
-            Provider.of<NavigationBarViewModel>(context, listen: false);
-        navigationBarViewModel.currentIndex = 2;
-
-        _refreshUserProfilePostList(context);
-      });
-
-      //loading animation
-      setState(() {
-        _isAdding = true;
-      });
-    });
-  }
-
   void _fetchImageGalleryAssets() async {
     final albums = await PhotoManager.getAssetPathList(onlyAll: true);
     final recentAlbum = albums.first;
@@ -178,13 +157,29 @@ class _AddingPostView extends State<AddingPostView> {
     print('перед сохранением count ' +
         _galleryListViewModel.imageAssets.length.toString());
     final saveResult =
-        await GallerySaver.saveImage(tmpFile.path, albumName: albumName);
-    if (saveResult == true) {
-      await Future.delayed(
-          Duration(seconds: 5), () => _fetchImageGalleryAssets());
-    }
+        await GallerySaver.saveImage(tmpFile.path, albumName: albumName).then((value) => value ? _fetchImageGalleryAssets() : null);
   }
 
+  void _addPost(BuildContext context) {
+    _galleryListViewModel.imageAssets[_galleryListViewModel.currentIndex].file
+        .then((value) {
+      _addingPostViewModel.addPost(value).then((value) {
+        setState(() {
+          _initialise();
+        });
+        var navigationBarViewModel =
+            Provider.of<NavigationBarViewModel>(context, listen: false);
+        navigationBarViewModel.currentIndex = 2;
+
+        _refreshUserProfilePostList(context);
+      });
+
+      //loading animation
+      setState(() {
+        _isAdding = true;
+      });
+    });
+  }
   void _refreshUserProfilePostList(BuildContext context) {
     var profilePostListViewModel =
         Provider.of<PostListViewModel>(context, listen: false);

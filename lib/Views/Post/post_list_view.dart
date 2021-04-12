@@ -21,15 +21,15 @@ class _PostListView extends State<PostListView> {
     }
 
     var postCount = postListViewModel.postViewModels.length;
-    return  postListViewModel.postViewModels.isNotEmpty
+    return postListViewModel.postViewModels.isNotEmpty
         ? RefreshIndicator(
-        child: ListView.builder(itemBuilder: (context, index) {
-          if (index < postCount)
-            return PostView(postListViewModel.postViewModels[index]);
-          else
-            return null;
-        }
-        ), onRefresh: _refreshPosts)
+                child: ListView.builder(itemCount: postListViewModel.postViewModels.length,itemBuilder: (context, index) {
+                  if (index < postCount)
+                    return PostView(postListViewModel.postViewModels[index]);
+                  else
+                    return null;
+                }),
+                onRefresh: _refreshPosts)
         : Center(child: CircularProgressIndicator());
   }
 

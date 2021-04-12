@@ -23,7 +23,6 @@ class ProfileExitButton extends StatelessWidget {
                 icon: Icon(Icons.exit_to_app, color: Colors.black),
                 onPressed: () {
                   print("exit");
-                  //TODO: перенаправить на login_view
                   Navigator.pushReplacementNamed(context, '/login_view');
                 }))
             : null);

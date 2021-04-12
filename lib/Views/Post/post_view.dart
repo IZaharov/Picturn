@@ -18,7 +18,7 @@ class PostView extends StatefulWidget {
   _PostView createState() => _PostView(postViewModel);
 }
 
-class _PostView extends State<PostView> {
+class _PostView extends State<PostView> with AutomaticKeepAliveClientMixin{
   TransformationController transformController = TransformationController();
   PostViewModel postViewModel;
   final FlareControls flareControls = FlareControls();
@@ -86,4 +86,7 @@ class _PostView extends State<PostView> {
       LikeView(postViewModel: this.postViewModel)
     ]);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
