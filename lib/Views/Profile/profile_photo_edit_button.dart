@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturn/ViewModels/profile_view_model.dart';
-import 'file:///C:/Users/Zakharov/AndroidStudioProjects/picturn/lib/Views/Profile/profile_photo_edit_view.dart';
 
 import '../../runtime_data.dart';
+import 'profile_photo_edit_view.dart';
 
 class ProfilePhotoEditButton extends StatelessWidget {
   ProfileViewModel profileViewModel;
