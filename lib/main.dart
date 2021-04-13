@@ -94,16 +94,13 @@ class _MyAppState extends State<MyApp> {
       title: 'Picturn',
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-        '/login_view': (_)=> LoginPage(),
+        '/login_view': (_) => LoginPage(),
       },
-
-      //home: NavigationBarView(),
-
-       home: LoginPage()
+      home: LoginPage(),
 
       // home: isFirstRun
-      //     ? OnBoardingPage(NavigationBarView(listTab))
-      //     : NavigationBarView(listTab),
+      //     ? OnBoardingPage(LoginPage())
+      //     : LoginPage(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:picturn/ViewModels/profile_view_model.dart';
+import 'file:///C:/Users/Zakharov/AndroidStudioProjects/picturn/lib/Views/Profile/profile_photo_edit_view.dart';
 
 import '../../runtime_data.dart';
 
@@ -22,6 +23,8 @@ class ProfilePhotoEditButton extends StatelessWidget {
                 icon: Icon(Icons.edit, color: Colors.black),
                 onPressed: () {
                   print("edit avatar");
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => ProfilePhotoEditView()));
                 }))
             : null);
   }
