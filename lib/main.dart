@@ -96,11 +96,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/login_view': (_) => LoginPage(),
       },
-      home: LoginPage(),
+     // home: LoginPage(),
 
-      // home: isFirstRun
-      //     ? OnBoardingPage(LoginPage())
-      //     : LoginPage(),
+      home: isFirstRun
+          ? OnBoardingPage(LoginPage())
+          : LoginPage(),
     );
   }
 }
