@@ -27,7 +27,7 @@ class _NavigationBarView extends State<NavigationBarView> {
       create: (context) => PostListViewModel(PostListType.all),
       child: PostListView(),
     ),
-    //AddingPostView(),
+    AddingPostView(),
     ProfileView(
       ProfileViewModel(RuntimeData.currentUserProfileViewModel.profile),
     ),
